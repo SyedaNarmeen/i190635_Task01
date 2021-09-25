@@ -75,57 +75,65 @@ public class Account
 	    void checkBalance()
 	    {
 	        System.out.print("The name of the account holder is: "+customerName);
-	        System.out.print("The balance in teh account is: "+bal);
+	        System.out.print("The balance in the account is: "+bal);
 	    }
 	    
-	    void calculateZakat()
+	    double calculateZakat()
 	    {
-	        if(bal >= 20000)
-	        System.out.print("The zakaat for this account is: "+ (bal * 2.5)/100);
-	        else
-	        System.out.print("Zakat is not applicable on this account");
+	    	if(accountType==2)
+	    	{
+	    	if (bal >=20000)
+	        return (bal * 2.5)/100;
+	    	else
+	    	return bal;
+	    	}
+	    	else
+	    		return 1;
 	    }
 	    
-	    void calculateInterest(int interest)
+	    double calculateInterest(int interest)
 	    {
 	    	if(accountType==1)
-	    		System.out.print("You can not get interest for checkings accounts");
+	    	{
+	    		return 1;
+	    		
+	    	}    		
 	    	else
-	    		System.out.print("Your interest is: "+bal*interest/100);
+	    		return bal*interest/100;
+	    		
 	    }
 	    
-	    void makeWithdrawal(){
+	    void makeWithdrawal(double a){
 	    	
-	        double n;
-	        System.out.print("Enter the amount you want to withdraw");
-	        n=inp1.nextDouble();
+	       
 	        if(accountType==1)
 	        {
-	            if(n>bal)
-	            System.out.print("You can not withdraw that amount");
-	            else
-	            bal-=n;
+	        	 if(a>bal)
+		            {
+		                if((a-bal)<=5000)
+		                bal-=a;
+		                else
+		                System.out.print("You can not withdraw that amount");
+		            }
+		            else
+		            bal-=a;
+	  
 	        }
 	        else
 	        {
-	            if(n>bal)
-	            {
-	                if((n-bal)<=5000)
-	                bal-=n;
-	                else
-	                System.out.print("You can not withdraw taht amount");
-	            }
+
+	            if(a>bal)
+	            System.out.print("You can not withdraw that amount");
 	            else
-	            bal-=n;
+	            bal-=a;
+	           
 	        }
 	        
 	    }
 	    
-	    void makeDeposit(){
-	        double n;
-	        System.out.print("Enter the amount you want to deposit");
-	        n=inp1.nextDouble();
-	        bal+=n;
+	    void makeDeposit(double a){
+	        
+	        bal+=a;
 	    }
 	    
 	    String getCustomerName() {
@@ -196,7 +204,5 @@ public class Account
 	    	fees++;
 	    }
 	    
-	    
-
-
 }
+

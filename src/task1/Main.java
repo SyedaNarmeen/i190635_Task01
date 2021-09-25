@@ -3,7 +3,7 @@
  * 19I-0635
  * Task1
  */
-//
+
 package task1;
 import java.util.Scanner;
 
@@ -107,11 +107,18 @@ public class Main
             {
             	if(arr[a].getAccountType()==1)
             		arr[a].addFees();
-                arr[a].makeDeposit();
+            	
+            	double n;
+    	        System.out.print("Enter the amount you want to deposit");
+    	        n=inp.nextDouble();
+                arr[a].makeDeposit(n);
             }
             else if(b==2)
             {
-                arr[a].makeWithdrawal();
+            	double n;
+     	        System.out.print("Enter the amount you want to withdraw");
+     	        n=inp.nextDouble();
+                arr[a].makeWithdrawal(n);
             }
             else if (b==3)
             {
@@ -168,7 +175,19 @@ public class Main
             }
             else if (b==6)
             {
-                arr[a].calculateZakat();
+            	if(arr[a].getAccountType()==2)
+            	{
+            		if (arr[a].getBalance() >=20000)
+                	{
+                		System.out.print("The zakaat for this account is: ");
+                	    System.out.println(arr[a].calculateZakat());
+                		
+                	}
+                	else
+                	        System.out.print("Zakat is not applicable on this account");
+            	}
+            	else
+            		        System.out.print("Zakat is not applicable on checkings account");
             }
             else if (b==7)
             {
@@ -179,7 +198,11 @@ public class Main
             {
             	System.out.println("Specify the interest rate you want");
             	c=inp.nextInt();
-            	arr[a].calculateInterest(c);
+            	if(arr[a].getAccountType()==1)
+            		System.out.print("You can not get interest for checkings accounts");
+            	else
+            		System.out.print("Your interest is: ");
+            	System.out.println(arr[a].calculateInterest(c));
             }
             else if (b==9)
             {
