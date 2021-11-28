@@ -5,13 +5,14 @@
  */
 
 package task1;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
 
 public class Main
 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 	    int a=0,b,c,x,y,z=0;
 	    Account arr[] = new Account[10];
         for (int i = 0; i < arr.length; i++) {

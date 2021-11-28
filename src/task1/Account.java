@@ -5,6 +5,11 @@
  */
 package task1;
 import java.util.Scanner;
+
+
+
+import java.io.*;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;  
 
@@ -14,7 +19,7 @@ import java.util.Scanner;
 
 public class Account
 {
-	 private String customerName;
+	    private String customerName;
 	    private String address;
 	    private String dateCreated;
 	    private int contact;
@@ -37,26 +42,103 @@ public class Account
 	    
 	    Scanner inp1 = new Scanner(System.in);
 	    
-	    void openNewAccount() {
-	        System.out.print("Enter your name: ");
-	        customerName = inp1.next();
-	        System.out.print("Enter your address: ");
-	        address = inp1.next();
-	        System.out.print("Enter your contact number: ");
-	        contact = inp1.nextInt();
-	        System.out.print("Enter your account id: ");
-	        accountId = inp1.nextInt();
-	        
-	        do
-	        {
-	        System.out.print("Enter the type of account you want: 1 for checkings and 2 for savings : ");
-	        accountType = inp1.nextInt();
-	        if((accountType!=1 && accountType!=2))
-	        System.out.print("You entered an invalid type.");
-	        }while(accountType>2 || accountType<1);
-	        
-	        System.out.print("Enter your balance : ");
-	        bal = inp1.nextDouble();
+	    void openNewAccount() throws SQLException {
+	    	
+	    	System.out.println("1. File");
+			System.out.println("2. Oracle");
+			System.out.println("3. MySQL");
+			System.out.println("\nEnter where ou want your info saved; 1, 2, or 3: ");
+	    	int x=inp1.nextInt();
+	    	
+	    	if(x==1)
+	    	{
+	    		System.out.print("Enter your name: ");
+	  	        customerName = inp1.next();
+	  	        System.out.print("Enter your address: ");
+	  	        address = inp1.next();
+	  	        System.out.print("Enter your contact number: ");
+	  	        contact = inp1.nextInt();
+	  	        System.out.print("Enter your account id: ");
+	  	        accountId = inp1.nextInt();
+	  	        
+	  	        do
+	  	        {
+	  	        System.out.print("Enter the type of account you want: 1 for checkings and 2 for savings : ");
+	  	        accountType = inp1.nextInt();
+	  	        if((accountType!=1 && accountType!=2))
+	  	        System.out.print("You entered an invalid type.");
+	  	        }while(accountType>2 || accountType<1);
+	  	        
+	  	        System.out.print("Enter your balance : ");
+	  	        bal = inp1.nextDouble();
+	  	        
+	  	      File file=new File("info.txt");
+				try {
+					file.createNewFile();
+					FileWriter f=new FileWriter("info.txt");
+					
+					f.write(customerName+" "+address+" "+contact+" "+accountId+" "+accountType+" "+bal);
+					f.close();
+					System.out.println("Data written in info.txt text file.");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	    	}
+	    	
+	    	else if (x==2) {
+	    		System.out.print("Enter your name: ");
+	  	        customerName = inp1.next();
+	  	        System.out.print("Enter your address: ");
+	  	        address = inp1.next();
+	  	        System.out.print("Enter your contact number: ");
+	  	        contact = inp1.nextInt();
+	  	        System.out.print("Enter your account id: ");
+	  	        accountId = inp1.nextInt();
+	  	        
+	  	        do
+	  	        {
+	  	        System.out.print("Enter the type of account you want: 1 for checkings and 2 for savings : ");
+	  	        accountType = inp1.nextInt();
+	  	        if((accountType!=1 && accountType!=2))
+	  	        System.out.print("You entered an invalid type.");
+	  	        }while(accountType>2 || accountType<1);
+	  	        
+	  	        System.out.print("Enter your balance : ");
+	  	        bal = inp1.nextDouble();
+	  	        
+	  	      oracleClass or=new oracleClass();
+				or.insert(customerName,address,contact,accountId,accountType,bal);
+	    		
+	    	}
+	    	else if(x==3) {
+	    		System.out.print("Enter your name: ");
+	  	        customerName = inp1.next();
+	  	        System.out.print("Enter your address: ");
+	  	        address = inp1.next();
+	  	        System.out.print("Enter your contact number: ");
+	  	        contact = inp1.nextInt();
+	  	        System.out.print("Enter your account id: ");
+	  	        accountId = inp1.nextInt();
+	  	        
+	  	        do
+	  	        {
+	  	        System.out.print("Enter the type of account you want: 1 for checkings and 2 for savings : ");
+	  	        accountType = inp1.nextInt();
+	  	        if((accountType!=1 && accountType!=2))
+	  	        System.out.print("You entered an invalid type.");
+	  	        }while(accountType>2 || accountType<1);
+	  	        
+	  	        System.out.print("Enter your balance : ");
+	  	        bal = inp1.nextDouble();
+	  	        
+				sqlClass sq=new sqlClass();
+				sq.insert(customerName,address,contact,accountId,accountType,bal);
+			}
+	    	
+			else {
+				System.out.println("Invalid choice.");
+			}
+	      
 	    }
 	    
 	    void printStatement()
